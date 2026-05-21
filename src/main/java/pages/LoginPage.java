@@ -16,7 +16,6 @@ public class LoginPage {
     private String password = "input[type='password']";
     private String loginBtn = "button[type='submit']";
     private String userProfileIcon = "button.btn-icon:has(svg.lucide-user)";
-    private String errorPopup = ".error";
 
     public void openLoginForm() {
         page.click(signInBtn);
@@ -36,7 +35,5 @@ public class LoginPage {
     public Locator checkUseProfileIcon(){
         return page.locator(userProfileIcon);
     }
-    public Locator getErrorPopupLocator() {
-        return page.locator(errorPopup);
-    }
+
 }

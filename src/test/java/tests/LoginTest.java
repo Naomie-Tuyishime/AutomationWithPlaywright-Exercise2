@@ -2,21 +2,20 @@ package tests;
 
 import actions.AuthActions;
 import com.microsoft.playwright.Page;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import utils.ConfigLoader;
 import utils.PlaywrightFactory;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginTest {
 
-    @Test
-    void validLoginTest() {
-        Page page = PlaywrightFactory.createPage();
+    @ParameterizedTest
+    @ValueSource(strings = {"chromium", "firefox", "webkit"})
+    void validLoginTest(String browserName) {
+        Page page = PlaywrightFactory.createPage(browserName);
         page.navigate(ConfigLoader.get("baseUrl"));
-
-
 
         AuthActions auth = new AuthActions(page);
 
@@ -25,20 +24,24 @@ public class LoginTest {
                 ConfigLoader.get("password")
         );
 
-        assertThat(page).hasURL(ConfigLoader.get("baseUrl")+"/home");
+        assertThat(page).hasURL(ConfigLoader.get("baseUrl") + "/home");
         assertThat(auth.userProfileIcon()).isVisible();
+
+        page.context().browser().close();
     }
 
-    @Test
-    void invalidLoginTest() {
-        Page page = PlaywrightFactory.createPage();
+    @ParameterizedTest
+    @ValueSource(strings = {"chromium", "firefox", "webkit"})
+    void invalidLoginTest(String browserName) {
+        Page page = PlaywrightFactory.createPage(browserName);
         page.navigate(ConfigLoader.get("baseUrl"));
 
         AuthActions auth = new AuthActions(page);
 
         auth.login(ConfigLoader.get("invalidEmail"), ConfigLoader.get("invalidPassword"));
 
-        assertThat(page).hasURL(ConfigLoader.get("baseUrl")+"/login");
+        assertThat(page).hasURL(ConfigLoader.get("baseUrl") + "/login");
 
+        page.context().browser().close();
     }
 }

@@ -23,8 +23,5 @@ public class AuthActions {
     public Locator userProfileIcon (){
         return loginPage.checkUseProfileIcon();
     }
-    public Locator getErrorMessage() {
-        return loginPage.getErrorPopupLocator();
-    }
 
 }
