@@ -9,6 +9,7 @@ import utils.PlaywrightFactory;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
+
 public class LoginTest {
 
     @ParameterizedTest
@@ -16,6 +17,8 @@ public class LoginTest {
     void validLoginTest(String browserName) {
         Page page = PlaywrightFactory.createPage(browserName);
         page.navigate(ConfigLoader.get("baseUrl"));
+
+
 
         AuthActions auth = new AuthActions(page);
 
