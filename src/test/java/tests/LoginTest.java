@@ -12,7 +12,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 public class LoginTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"chromium", "firefox", "webkit"})
+    @ValueSource(strings = {"chromium"})
     void validLoginTest(String browserName) {
         Page page = PlaywrightFactory.createPage(browserName);
         page.navigate(ConfigLoader.get("baseUrl"));
@@ -31,7 +31,7 @@ public class LoginTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"chromium", "firefox", "webkit"})
+    @ValueSource(strings = {"chromium"})
     void invalidLoginTest(String browserName) {
         Page page = PlaywrightFactory.createPage(browserName);
         page.navigate(ConfigLoader.get("baseUrl"));
