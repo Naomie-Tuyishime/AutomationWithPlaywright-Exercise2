@@ -39,6 +39,8 @@ public class ProductPage {
 
     }
 
-
+    public Page getPage() {
+        return page;
+    }
 
 }
