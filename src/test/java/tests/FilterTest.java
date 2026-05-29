@@ -73,7 +73,7 @@ public class FilterTest extends BaseTest {
         FilterActions filter = setup(browserName);
 
         filter.filterByColor("Black");
-
+        page.waitForTimeout(3000);
         assertProductsOrNoResults(filter, "color: Black");
     }
 
@@ -81,10 +81,10 @@ public class FilterTest extends BaseTest {
     @ValueSource(strings = {"chromium", "firefox", "webkit"})
     void filterBySpecial(String browserName) {
         FilterActions filter = setup(browserName);
-
         filter.filterBySpecial("On Sale");
-
+        page.waitForTimeout(3000);
         assertProductsOrNoResults(filter, "special: On Sale");
+
     }
 
     @ParameterizedTest
