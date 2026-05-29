@@ -20,14 +20,13 @@ public class AuthActions {
 
         loginPage.submitLogin();
     }
-    public Locator userProfileIcon (){
+    public Locator userProfileIcon ()
+    {
         return loginPage.checkUseProfileIcon();
     }
 
-    public void loginOnRedirect(String email, String password) {
-        loginPage.enterEmail(email);
-        loginPage.enterPassword(password);
-        loginPage.submitLogin();
-    }
+
+
+
 
 }
