@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04   # 🔥 IMPORTANT: avoids Ubuntu 24.04 library chaos
 
     steps:
       - name: Checkout code
@@ -19,17 +19,43 @@ jobs:
           java-version: 17
           cache: maven
 
-      - name: Install Playwright system dependencies
+      # ✅ FIX 1: Install required OS dependencies (THIS is the key)
+      - name: Install system dependencies for Playwright
         run: |
-          mvn exec:java -e \
-            -Dexec.mainClass=com.microsoft.playwright.CLI \
-            -Dexec.args="install-deps"
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 \
+            libnspr4 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libcups2 \
+            libdrm2 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxfixes3 \
+            libxrandr2 \
+            libgbm1 \
+            libasound2 \
+            libx11-xcb1 \
+            libxcb1 \
+            libxss1 \
+            libgtk-3-0 \
+            libpango-1.0-0 \
+            libcairo2 \
+            libxshmfence1
 
       - name: Install Playwright browsers
         run: |
           mvn exec:java -e \
             -Dexec.mainClass=com.microsoft.playwright.CLI \
-            -Dexec.args="install"
+            -Dexec.args="install --with-deps"
+
+      # Optional safety fallback (if install fails)
+      - name: Force install dependencies (backup)
+        run: |
+          mvn exec:java -e \
+            -Dexec.mainClass=com.microsoft.playwright.CLI \
+            -Dexec.args="install-deps"
 
       - name: Run tests
         run: mvn clean test
