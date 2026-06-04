@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04   # 🔥 IMPORTANT: avoids Ubuntu 24.04 library chaos
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
@@ -19,7 +19,6 @@ jobs:
           java-version: 17
           cache: maven
 
-      # ✅ FIX 1: Install required OS dependencies (THIS is the key)
       - name: Install system dependencies for Playwright
         run: |
           sudo apt-get update
