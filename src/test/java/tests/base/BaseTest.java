@@ -11,7 +11,10 @@ public class BaseTest {
 
     protected void setUp(String browserName) {
         page = PlaywrightFactory.createPage(browserName);
-        page.navigate(ConfigLoader.get("baseUrl"));
+        page.navigate(
+                ConfigLoader.get("baseUrl"),
+                new Page.NavigateOptions().setTimeout(90000)
+        );
     }
 
     @AfterEach

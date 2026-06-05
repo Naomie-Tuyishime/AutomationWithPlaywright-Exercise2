@@ -12,7 +12,7 @@ public class AuthActions {
         this.loginPage = new LoginPage(page);
     }
 
-    public void login(String email, String password) {
+    public  void login(String email, String password) {
 
         loginPage.openLoginForm();
         loginPage.enterEmail(email);
@@ -20,8 +20,13 @@ public class AuthActions {
 
         loginPage.submitLogin();
     }
-    public Locator userProfileIcon (){
+    public Locator userProfileIcon ()
+    {
         return loginPage.checkUseProfileIcon();
     }
+
+
+
+
 
 }
