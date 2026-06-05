@@ -27,6 +27,7 @@ public class PlaywrightFactory {
                 break;
         }
 
+
         return browser.newPage();
     }
 }
