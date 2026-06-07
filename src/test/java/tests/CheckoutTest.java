@@ -49,4 +49,20 @@ public class CheckoutTest extends BaseTest {
 
 
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"chromium"})
+    public void userShouldBeRedirectedToHomeWhenCheckingOutWithoutLogin(String browserName) {
+        setUp(browserName);
+        page.navigate(ConfigLoader.get("baseUrl") + AddToCartConstants.PRODUCT_SLUG);
+
+        CartActions cartActions = new CartActions(page);
+
+
+        cartActions.openProductBySlug(AddToCartConstants.PRODUCT_SLUG);
+
+        cartActions.addToCart();
+        cartActions.checkoutButton().click();
+        assertThat(page).hasURL(ConfigLoader.get("baseUrl") + "/login");
+    }
 }
